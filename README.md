@@ -99,7 +99,7 @@ def train_model(model, train_loader, criterion, optimizer, epochs):
 
 ### Confusion Matrix
 
-<img width="699" height="611" alt="image" src="https://github.com/user-attachments/assets/b92e2c6e-e858-4ad7-9323-4ae261214365" />
+<img width="555" height="533" alt="image" src="https://github.com/user-attachments/assets/71b14626-6165-4dbe-8154-dce6ebc93f9d" />
 
 
 ### Classification Report
