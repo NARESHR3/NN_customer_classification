@@ -14,7 +14,7 @@ You are required to help the manager to predict the right group of the new custo
 
 ## Neural Network Model
 
-<img width="869" height="713" alt="Screenshot 2026-02-06 184805" src="https://github.com/user-attachments/assets/6e808709-6ddc-4642-906f-b2f4c05dbc23" />
+<img width="660" height="865" alt="image" src="https://github.com/user-attachments/assets/ccb1c864-7ccf-4c28-a008-19638ba1ed96" />
 
 ## DESIGN STEPS:
 
@@ -42,20 +42,23 @@ Save the trained model, export it if needed, and deploy it for real-world use.
 ## PROGRAM
 
 ### Name: NARESH.R
-### Register Number: 2122232
+### Register Number: 212223240104
 
 ```python
-class PeopleClassifier(nn.Module):
-    def __init__(self, input_size, num_classes):
-        super(PeopleClassifier, self).__init__()
-        self.fc1 = nn.Linear(input_size, 32)
-        self.fc2 = nn.Linear(32, 16)
-        self.fc3 = nn.Linear(16, num_classes)
+class NARESH(nn.Module):
+    def __init__(self, input_size):
+        super(NARESH, self).__init__()
+        self.fc1 = nn.Linear(input_size, 64)
+        self.fc2 = nn.Linear(64, 32)
+        self.fc3 = nn.Linear(32, 4)  # 4 classes (A, B, C, D)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout(0.3)
 
     def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        x = torch.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = self.relu(self.fc1(x))
+        x = self.dropout(x)
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)   # No softmax here (CrossEntropyLoss handles it)
         return x
 ```
 ```python
@@ -63,20 +66,20 @@ class PeopleClassifier(nn.Module):
 input_size = X_train.shape[1]
 num_classes = 4
 
-model = PeopleClassifier(input_size, num_classes)
+Naresh = NARESH(input_size, num_classes)
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+optimizer = optim.Adam(Naresh.parameters(), lr=0.001)
 
 ```
 ```python
-def train_model(model, train_loader, criterion, optimizer, epochs):
+def train_model(Naresh, train_loader, criterion, optimizer, epochs):
     for epoch in range(epochs):
         model.train()
         total_loss = 0
 
         for inputs, labels in train_loader:
             optimizer.zero_grad()
-            outputs = model(inputs)
+            outputs = Naresh(inputs)
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -109,8 +112,7 @@ def train_model(model, train_loader, criterion, optimizer, epochs):
 
 
 ### New Sample Data Prediction
-
-<img width="779" height="258" alt="image" src="https://github.com/user-attachments/assets/726a289f-2ecf-4c55-bb91-cf198b4da60c" />
+<img width="601" height="165" alt="image" src="https://github.com/user-attachments/assets/59f94157-38ce-46b6-9953-c9f4f12ffeca" />
 
 ## RESULT
 
